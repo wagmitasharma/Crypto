@@ -34,14 +34,6 @@ public class CryptoController {
     @Autowired
     private DecryptionInterface decryptionInterface;
 
-//    @GetMapping(value = "/encrypt", produces = MediaType.IMAGE_PNG_VALUE)
-//    public ResponseEntity<byte[]> getEncryptImage(@RequestParam String msg) throws IOException {
-//        File encyptedImage = new File(encryptionInterface.encrypt(msg));
-//        InputStream in = new FileInputStream(encyptedImage);
-//        byte[] imgBytes = StreamUtils.copyToByteArray(in);
-//        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imgBytes);
-//    }
-
     @GetMapping(value = "/encrypt", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getEncryptImage(@RequestParam String msg) throws IOException {
         File encyptedImage = new File(encryptionInterface.encrypt(msg));
