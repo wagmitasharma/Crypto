@@ -1,10 +1,10 @@
 package com.Crypto.controllers;
 
+import com.Crypto.aspects.Loggable;
 import com.Crypto.serviceIntefaces.DecryptionInterface;
 import com.Crypto.serviceIntefaces.EncryptionInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 
 @RestController
 @RequestMapping("/crypto")
@@ -34,6 +32,7 @@ public class CryptoController {
     @Autowired
     private DecryptionInterface decryptionInterface;
 
+    @Loggable
     @GetMapping(value = "/encrypt", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getEncryptImage(@RequestParam String msg) throws IOException {
         File encyptedImage = new File(encryptionInterface.encrypt(msg));
@@ -42,6 +41,7 @@ public class CryptoController {
         return new ResponseEntity<>(imgBytes,HttpStatus.OK);
     }
 
+    @Loggable
     @GetMapping(path = "/download")
     public ResponseEntity<Resource> download(@RequestParam String image) throws IOException {
         File file = new File(image);
