@@ -59,6 +59,7 @@ public class CryptoController {
                 .body(resource);
     }
 
+    @Loggable
     @PostMapping(path = "/decrypt")
     public ResponseEntity<String> decodeMsg(@RequestParam MultipartFile image){
         String msg = decryptionInterface.decodeMsg(image);
